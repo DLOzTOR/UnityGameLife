@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class gameLife : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class gameLife : MonoBehaviour
     public GameObject cellPref;
     public float iterationTimeIsSeconds = 0.5f;
     private static bool iterationEnd=true;
+    public TMP_Text UIspeed;
+    public TMP_Text UIiteration;
+    private int iteration = 1;
     void createField()
     {
         for(int i = 0; i< height; i++)
@@ -58,16 +62,25 @@ public class gameLife : MonoBehaviour
                  field[j,i].changeState(t[j, i]);
             }
         }
+        iteration++;
         iterationEnd = true;
     }
     void Start()
     {
         createField();
+        UIupdate();
     }
-
+    void UIupdate()
+    {
+        UIspeed.text = string.Format(" interation in sec: {0}", iterationTimeIsSeconds);
+        UIiteration.text = string.Format(" curent interation is : {0}", iteration);
+    }
     void Update()
     {
         if (Input.GetKeyDown("s"))gameStart = !gameStart;
+        if (Input.GetKeyDown("t")) iterationTimeIsSeconds *= 2;
+        if (Input.GetKeyDown("y")) iterationTimeIsSeconds /= 2;
         if (gameStart == true && iterationEnd) { iterationEnd = false; StartCoroutine(updateField()); }
+        UIupdate();
     }
 }
