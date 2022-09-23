@@ -46,7 +46,6 @@ public class gameLife : MonoBehaviour
     }
     IEnumerator updateField()
     {
-        yield return new WaitForSeconds(iterationTimeIsSeconds);
         bool[,] t = new bool[width,height];
         for (int i = 0; i < height; i++)
         {
@@ -63,6 +62,7 @@ public class gameLife : MonoBehaviour
             }
         }
         iteration++;
+        yield return new WaitForSeconds(iterationTimeIsSeconds);
         iterationEnd = true;
     }
     void Start()
@@ -78,8 +78,8 @@ public class gameLife : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown("s"))gameStart = !gameStart;
-        if (Input.GetKeyDown("t")) iterationTimeIsSeconds *= 2;
-        if (Input.GetKeyDown("y")) iterationTimeIsSeconds /= 2;
+        if (Input.GetKeyDown("t")) iterationTimeIsSeconds /= 2;
+        if (Input.GetKeyDown("y")) iterationTimeIsSeconds *= 2;
         if (gameStart == true && iterationEnd) { iterationEnd = false; StartCoroutine(updateField()); }
         UIupdate();
     }
