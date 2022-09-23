@@ -17,12 +17,19 @@ public class cell : MonoBehaviour
     public void changeState(bool isAlife)
     {
         this.isAlife = isAlife;
+        if(gameLife.darkTheme == false){ 
         if (this.isAlife == true) obj.GetComponent<SpriteRenderer>().color = Color.black;
         else obj.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        else
+        {
+            if (this.isAlife == true) obj.GetComponent<SpriteRenderer>().color = Color.white;
+            else obj.GetComponent<SpriteRenderer>().color = Color.black;
+        }
     }
     private void OnMouseDown()
     {
         cell cellt = gameLife.field[Convert.ToInt32(GetComponent<Transform>().position.x),Convert.ToInt32(GetComponent<Transform>().position.y)];
-        if (gameLife.gameStart == false) cellt.changeState(!cellt.isAlife);
+        if (gameLife.state == gameLife.GameState.draw) cellt.changeState(!cellt.isAlife);
     }
 }
