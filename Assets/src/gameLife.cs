@@ -14,7 +14,7 @@ public class gameLife : MonoBehaviour
     public static bool darkTheme = false;
     public GameObject canvas;
     public GameObject UIiterationHistory;
-    private const int width = 64, height = 36;
+    public const int width = 100, height = 100;
     public static GameState state = GameState.draw;
     public static cell[,] field = new cell[width,height];
     public GameObject cellPref;
@@ -23,7 +23,7 @@ public class gameLife : MonoBehaviour
     public TMP_Text UIspeed;
     public TMP_Text UIiteration;
     public TMP_Text UIcurIteration;
-    private int iteration = 0, curIteration;
+    static public int iteration = 0, curIteration;
     private List<bool[,]> iterations = new List<bool[,]>();
     void createField()
     {
@@ -162,12 +162,12 @@ public class gameLife : MonoBehaviour
     }
     void kayboardInput()
     {
-        if (Input.GetKeyDown("s")) pause();
+        if (Input.GetKeyDown("p")) pause();
         if (Input.GetKeyDown("u")) { canvas.SetActive(!canvas.activeSelf); Debug.Log(canvas.activeSelf); }
         if (Input.GetKeyDown("t")) iterationTimeIsSeconds /= 2;
         if (Input.GetKeyDown("y")) iterationTimeIsSeconds *= 2;
         if (Input.GetKeyDown("v")) stateViewer();
-        if (Input.GetKeyDown("d")) darkThemeSet();
+        if (Input.GetKeyDown("h")) darkThemeSet();
 
         if (state == GameState.watch && iteration > 0)
         {

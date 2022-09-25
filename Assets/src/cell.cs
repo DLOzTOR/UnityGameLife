@@ -8,6 +8,10 @@ public class cell : MonoBehaviour
     public Vector2 position;
     public bool isAlife;
     private GameObject obj;
+    private struct Theme
+    {
+
+    }
     public cell(float x, float y, bool isAlife, GameObject cellPref)
     {
         position = new Vector2(x, y);
@@ -30,6 +34,6 @@ public class cell : MonoBehaviour
     private void OnMouseDown()
     {
         cell cellt = gameLife.field[Convert.ToInt32(GetComponent<Transform>().position.x),Convert.ToInt32(GetComponent<Transform>().position.y)];
-        if (gameLife.state == gameLife.GameState.draw) cellt.changeState(!cellt.isAlife);
+        if (gameLife.state == gameLife.GameState.draw && gameLife.iteration == 0) cellt.changeState(!cellt.isAlife);
     }
 }
