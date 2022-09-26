@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class gameLife : MonoBehaviour
@@ -105,7 +106,25 @@ public class gameLife : MonoBehaviour
         }
         else if (state == GameState.play) state = GameState.draw; 
     }
-
+    void randomField()
+    {
+        if (iteration == 0) {
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    field[j, i].changeState(false);
+                }
+            }
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    field[j, i].changeState(Random.RandomRange(0, 8) == 1 ? true : false);
+                }
+            }
+        }
+    }
     void stateViewer()
     {
         if (state != GameState.watch)
@@ -168,7 +187,8 @@ public class gameLife : MonoBehaviour
         if (Input.GetKeyDown("y")) iterationTimeIsSeconds *= 2;
         if (Input.GetKeyDown("v")) stateViewer();
         if (Input.GetKeyDown("h")) darkThemeSet();
-
+        if (Input.GetKeyDown("z")) randomField();
+        if (Input.GetKeyDown("m")) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (state == GameState.watch && iteration > 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) stateBack();
@@ -185,7 +205,7 @@ public class gameLife : MonoBehaviour
     {
         kayboardInput();
         if (state== GameState.play && iterationEnd) { iterationEnd = false; StartCoroutine(updateField()); }
-        
+        Debug.Log(darkTheme);
         UIupdate();
     }
 }
