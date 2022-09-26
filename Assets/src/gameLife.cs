@@ -179,6 +179,22 @@ public class gameLife : MonoBehaviour
             }
         }
     }
+    void restart()
+    {
+        iteration = 0;
+        curIteration = 0;
+        if (state == GameState.watch) stateViewer();
+        state = GameState.draw;
+        iterationEnd = true;
+        iterations = new List<bool[,]>();
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                field[j, i].changeState(false);
+            }
+        }
+    }
     void kayboardInput()
     {
         if (Input.GetKeyDown("p")) pause();
@@ -188,7 +204,7 @@ public class gameLife : MonoBehaviour
         if (Input.GetKeyDown("v")) stateViewer();
         if (Input.GetKeyDown("h")) darkThemeSet();
         if (Input.GetKeyDown("z")) randomField();
-        if (Input.GetKeyDown("m")) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (Input.GetKeyDown("m")) restart();
         if (state == GameState.watch && iteration > 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) stateBack();
